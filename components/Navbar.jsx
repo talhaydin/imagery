@@ -1,45 +1,41 @@
-import { React, useState, useEffect } from "react";
 import Link from "next/link";
+import React, { useState, useEffect } from "react";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
 const Navbar = () => {
-  const [navBar, setNavBar] = useState(false);
-  const [navColor, setNavColor] = useState("transparent");
-  const [navTextColor, setNavTextColor] = useState("white");
-  const handleNavBar = () => {
-    setNavBar(!navBar);
+  const [nav, setNav] = useState(false);
+  const [color, setColor] = useState("transparent");
+  const [textColor, setTextColor] = useState("white");
+
+  const handleNav = () => {
+    setNav(!nav);
   };
 
   useEffect(() => {
-    const changeNavColor = () => {
-      if (window.scrollY >= 80) {
-        setNavColor("#ffffff");
-        setNavTextColor("#000000");
+    const changeColor = () => {
+      if (window.scrollY >= 90) {
+        setColor("#ffffff");
+        setTextColor("#000000");
       } else {
-        setNavColor("transparent");
-        setNavTextColor("white");
+        setColor("transparent");
+        setTextColor("#ffffff");
       }
     };
-    window.addEventListener("scroll", changeNavColor);
+    window.addEventListener("scroll", changeColor);
   }, []);
 
   return (
     <div
+      style={{ backgroundColor: `${color}` }}
       className="fixed left-0 top-0 w-full z-10 ease-in duration-300"
-      style={{ backgroundColor: `${navColor}` }}
     >
       <div className="max-w-[1240px] m-auto flex justify-between items-center p-4 text-white">
         <Link href="/">
-          {" "}
-          <h1
-            className="font-bold text-4xl"
-            style={{ color: `${navTextColor}` }}
-          >
-            Imagery
+          <h1 style={{ color: `${textColor}` }} className="font-bold text-4xl">
+            Captur
           </h1>
         </Link>
-
-        <ul className="hidden sm:flex" style={{ color: `${navTextColor}` }}>
+        <ul style={{ color: `${textColor}` }} className="hidden sm:flex">
           <li className="p-4">
             <Link href="/">Home</Link>
           </li>
@@ -47,39 +43,52 @@ const Navbar = () => {
             <Link href="/#gallery">Gallery</Link>
           </li>
           <li className="p-4">
-            <Link href="/portfolio">Work</Link>
+            <Link href="/work">Work</Link>
           </li>
           <li className="p-4">
             <Link href="/contact">Contact</Link>
           </li>
         </ul>
-        {/* Mobile Button  */}
-        <div onClick={handleNavBar} className="block sm:hidden z-10">
-          {navBar ? (
-            <AiOutlineClose
-              size={20}
-              style={{ color: `${navTextColor}` }}
-            ></AiOutlineClose>
+
+        {/* Mobile Button */}
+        <div onClick={handleNav} className="block sm:hidden z-10">
+          {nav ? (
+            <AiOutlineClose size={20} style={{ color: `${textColor}` }} />
           ) : (
-            <AiOutlineMenu size={20} style={{ color: `${navTextColor}` }} />
+            <AiOutlineMenu size={20} style={{ color: `${textColor}` }} />
           )}
         </div>
         {/* Mobile Menu */}
         <div
-          className={`absolute top-0 ${navBar ? "left-0" : "left-[-100%]"}
-          }bottom-0 right-0 flex justify-center items-center w-full h-screen bg-black text-center ease-in duration-300`}
+          className={
+            nav
+              ? "sm:hidden absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center w-full h-screen bg-black text-center ease-in duration-300"
+              : "sm:hidden absolute top-0 left-[-100%] right-0 bottom-0 flex justify-center items-center w-full h-screen bg-black text-center ease-in duration-300"
+          }
         >
           <ul>
-            <li className="p-4 text-4xl hover:text-gray-500">
+            <li
+              onClick={handleNav}
+              className="p-4 text-4xl hover:text-gray-500"
+            >
               <Link href="/">Home</Link>
             </li>
-            <li className="p-4 text-4xl hover:text-gray-500">
+            <li
+              onClick={handleNav}
+              className="p-4 text-4xl hover:text-gray-500"
+            >
               <Link href="/#gallery">Gallery</Link>
             </li>
-            <li className="p-4 text-4xl hover:text-gray-500">
-              <Link href="/portfolio">Work</Link>
+            <li
+              onClick={handleNav}
+              className="p-4 text-4xl hover:text-gray-500"
+            >
+              <Link href="/work">Work</Link>
             </li>
-            <li className="p-4 text-4xl hover:text-gray-500">
+            <li
+              onClick={handleNav}
+              className="p-4 text-4xl hover:text-gray-500"
+            >
               <Link href="/contact">Contact</Link>
             </li>
           </ul>

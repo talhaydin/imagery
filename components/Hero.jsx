@@ -8,7 +8,6 @@ const Hero = ({ heading, message }) => {
         {" "}
         <h2 className="text-5xl font-bold">{heading}</h2>
         <p className="py-5 text-xl">{message}</p>
-        <button className="px-8 py-2 border ">book</button>
       </div>
     </div>
   );
